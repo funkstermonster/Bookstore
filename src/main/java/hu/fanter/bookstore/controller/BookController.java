@@ -1,34 +1,18 @@
 package hu.fanter.bookstore.controller;
 
-import hu.fanter.bookstore.domain.Book;
 import hu.fanter.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 
-@RestController
-@RequestMapping(value = "/books")
+@Controller
 public class BookController {
-
-    private final BookService bookService;
-
     @Autowired
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
+    private BookService service;
 
-    @GetMapping("/book/{isbn}")
-    private Book findBookByIsbn(@PathVariable() String isbn) {
-        return bookService.findByIsbn(isbn);
-    }
+    public String bookList(Model model) {
+        model.addAttribute("books", service.findAll());
 
-    @PostMapping("/save")
-    private Book saveBook(@RequestBody() Book book) {
-        return bookService.saveBook(book);
+        return "book-list";
     }
-
-    @DeleteMapping("/delete/{isbn}")
-    private void deleteBook(@PathVariable() String isbn) {
-        bookService.deleteByIsbn(isbn);
-    }
-
 }

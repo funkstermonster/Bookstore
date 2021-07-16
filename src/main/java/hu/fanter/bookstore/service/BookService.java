@@ -5,6 +5,8 @@ import hu.fanter.bookstore.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService {
 
@@ -19,12 +21,16 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public Book deleteByIsbn(String isbn) {
-        return bookRepository.deleteByIsbn(isbn);
+    public void deleteById(int id) {
+        bookRepository.deleteById(id);
     }
 
     public Book findByIsbn(String isbn) {
         return bookRepository.findByIsbn(isbn);
+    }
+
+    public List<Book> findAll() {
+        return bookRepository.findAll();
     }
 
 
