@@ -5,6 +5,8 @@ import hu.fanter.bookstore.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/books")
 public class BookRestController {
@@ -29,6 +31,11 @@ public class BookRestController {
     @DeleteMapping("/delete/{id}")
     private void deleteBook(@PathVariable() int id) {
         bookService.deleteById(id);
+    }
+
+    @GetMapping("/book/evenisbn")
+    private List<Book> findEvenIsbn() {
+        return bookService.evenIsbnBooks();
     }
 
 }
